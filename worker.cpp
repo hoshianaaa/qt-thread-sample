@@ -26,6 +26,8 @@
 #include <QThread>
 #include <QDebug>
 
+#include <iostream>
+
 Worker::Worker(QObject *parent) :
     QObject(parent)
 {
@@ -70,13 +72,7 @@ void Worker::doWork()
             break;
         }
 
-        // This will stupidly wait 1 sec doing nothing...
-        QEventLoop loop;
-        QTimer::singleShot(1, &loop, SLOT(quit()));
-        loop.exec();
-
-        // Once we're done waiting, value is updated
-        emit valueChanged(QString::number(i));
+        std::cout << "hello" << i << std::endl;
         i++;
     }
 
