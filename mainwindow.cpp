@@ -38,6 +38,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(worker, SIGNAL(workRequested()), thread, SLOT(start()));
     connect(thread, SIGNAL(started()), worker, SLOT(doWork()));
     connect(worker, SIGNAL(finished()), thread, SLOT(quit()), Qt::DirectConnection);
+
+    worker->abort();
+    thread->wait(); // If the thread is not running, this will immediately return.
+
+    worker->requestWork();
 }
 
 MainWindow::~MainWindow()
