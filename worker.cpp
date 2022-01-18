@@ -62,7 +62,6 @@ void Worker::doWork()
     int i=0;
     while(1) {
 
-        // Checks if the process should be aborted
         mutex.lock();
         bool abort = _abort;
         mutex.unlock();
@@ -72,8 +71,14 @@ void Worker::doWork()
             break;
         }
 
-        std::cout << "hello" << i << std::endl;
-        i++;
+        for (int j=0;j<100000000;j++){
+            // Checks if the process should be aborted
+
+            //std::cout << "hello" << i << std::endl;
+            i++;
+        }
+
+        emit valueChanged(QString::number(i));
     }
 
     // Set _working to false, meaning the process can't be aborted anymore.
